@@ -1,59 +1,18 @@
 const path = require('path');
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
-
 module.exports = {
     entry: {
-        app: './src/index.js'  // entry point to app.
-    },
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                styles: {
-                    name: 'styles',
-                    test: /\.css$/,  // regex
-                    chunks: 'all',
-                    enforce: true
-                }
-            }
-        }
+        app: './src/index.js'  // entry point to our app.
     },
     devServer: {
         hot: true,  // enables hot reloading
-        compress: true,  // optimazation
-        contentBase: path.join(__dirname, 'dist'),  // where to look for files
-        open: 'google-chrome'  // btter value = true
+        compress: true  // optimazation
     },
-    watch: true,
-    devtool: 'source-map',
+    watch: true,  // so that we don't to restart webpack server all the time
+    devtool: 'source-map',  // Has few options - source-map = maps code, transpired coce, minified code, etc. Understand how this works.
     output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        filename: `[name].bundle.js`,  // output name of the webpack bundle
+        path: path.resolve(__dirname, 'dist')  // .resolve: get current dir and concatenates it with the files and such.
+        // dist: output folder (also concatenated to current dir through path). Distribution directory containing bundles for production. Source will be in src
     },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new MiniCssExtractPlugin({
-            filename: "style.css",
-            chunkFilename: "[name].css"
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-        new HtmlWebpackPlugin()
-    ],
-    module: {
-        rules: [
-            {
-                test: /\.scss$/,  // regex
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    {
-                        loader: "css-loader"
-                    },
-                    "sass-loader"
-                ]
-            }
-        ]
-    }
 }
