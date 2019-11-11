@@ -4,6 +4,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCss = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -19,7 +21,20 @@ module.exports = {
                     enforce: true
                 }
             }
-        }
+        },
+        minimizer: [
+            new TerserPlugin({
+                parallel: true,
+                terserOptions: {
+                    ecma: 6
+                }
+            }),
+            new OptimizeCss({
+                cssProcessorOptions: {
+                    discardComments: true
+                }
+            })
+        ]
     },
     devServer: {
         hot: true,  // enables hot reloading
