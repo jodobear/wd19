@@ -6,12 +6,13 @@ export default class Home extends React.Component {
     render() {
         let person = "Window";
         const func = () => {
-            console.log('Yo! Peak dynamic!');
+            console.log('Yo! Peak dynamic!')
+            return "adelik";
         }
         return (
             <div>
                 <Header title="Windowlicker"></Header>
-                <Grid dynamicTitle="holy mo fo, this is dynamic" dynamicVarTitle={"Howdy, " + person} dynamicFuncTitle={"Check out console log" + func()} />
+                <Grid data={[<div><h1>holy crap, an html header</h1></div>, "Second column Title", "THIRD", person, "Funk" + func()]} />
             </div>
         )
     }
