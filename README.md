@@ -7,3 +7,25 @@ Added `build` to `package.json` for command `webpack --mode produciton`. To run 
 This creates the `dist` folder with the production build. Till now even for `buildProd` we were using `webpack-dev-server`. The `dist` folder packages your entire app and creates the files; `app.bundle.js`, `app.bundle.LICENSE`, `app.bundle.js.map`, `index.html`, `style.css`.
 
 Each of these files contain respective content all optimized. You don't really need the `index.html` since you'll be using some sort of framework like `ASP.NET` or `Django` or `Node.js` that have their own templates which is what you'll use.
+
+## index.html till this point
+
+This was replaced by the theme `index.html`
+
+    <html>
+        <head>
+            <title>
+            Lick`em windows good!
+            </title>
+        </head>
+        <body>
+            <header>
+            <nav>
+                <div><a href="/">Logo</a></div>
+                <div><a href="/">Home</a></div>
+                <div><a href="/">Home</a></div>
+            </nav>
+            </header>
+            <div id="root"></div>
+        </body>
+        </html>
