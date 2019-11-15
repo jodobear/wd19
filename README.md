@@ -36,7 +36,6 @@ Then deleted core bootstrap import within `index.html` since we have already inc
 
 ### NOTES on the SASS structure of the theme
 
-* All the `.scss` files that start with `_` are treated as plugins and won't be compiled.
-* `resume.scss` imports all the `_*.scss` (plugin) files and build it into the `min`(?) file so, all we need to to is import this file within our project, which we do in `index.js` instead of our `main.scss`.
+All the `.scss` files that start with `_` are called partials. It's a way to break out code and modularize it. They treated as plugins and won't be compiled. It is in `resume.scss` where we import all the partials(like so: `@import "nav.scss"` - note the missing `_`) and this tells SASS that we only want one `scss` file. It is a requirement to start partial filenames with `_` for the SASS compiler. And we just import this one file within our project, which we do in `index.js` instead of our `main.scss`.
 
 When we run our `buildDev` we see the theme loaded as our website. It doesn't have all those images and such which were to be loaded from the lines we deleted in `index.html`.
