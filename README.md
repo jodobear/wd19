@@ -1,34 +1,14 @@
 # Web Dev Chris Hawkes 2019
 
-## Server - Node & Express
+## Advance React
 
-Created a `node_server` directory in project home.
-Ran `npm init` and setup a server project and create a configuration file just as we did for the rest of the project.
-Then installed Express: `npm install --save express`.
-Then we create an `index.js` file which is the entry point to our app as we defined it during project setup.
-Pasted starter code from Express website and spun up the server using `node index.js`:
+* Deleted `index.html` in project home - not required for a long time.
+* Modifications to `webpack.config`:
+  1. Removed `CleanWebpackPlugin` since now we don't want to delete our `dist` directory every time we build as we have some assests which will have to be re-copied into `dist` every time we build. Old `dist` backed up as `_base_web_dv-dist`. Not sure if it's a good idea since you can always have your assets directory ready to be copied everytime you build and have a clean build every time, but following for now.
+  2. Imported `express` then added following code in `devServer`for the `static` helper to look for files in `dist`:
 
-    const express = require('express'); // importing express - different syntax than ES6.
-    const app = express()
-    const port = 3000
+            before(app) {
+               app.use('/static', express.static(path.resolve(__dirname, 'dist')))
+           }
 
-    app.get('/', (req, res) => res.send('Hello, World!')); //res = resource
-
-    app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
-### Extending the Express server
-
-Then we created a `index.html` within the `node_server` directory, which contains the follwing lines:
-
-    <!-- This links to all the css in dist directory -->
-    <link rel="stylesheet" href="/static/style.css" />
-    <h1>Is this connection from server working?</h1>
-    <!-- This links to all the React components linked to the root id -->
-    <div id="root"></div>
-    <!-- This links to all the js in dist directory -->
-    <script src="/static/app.bundle.js"></script>
-    <!-- The static helper automatically finds stuff so, you don't have to put the paths, which is defined in index.js in the node_server -->
-
-Then modified the `app.get(...)` function to get `index.html`, like so:
-
-    app.get('/', (req, res) => res.sendFile(__dirname + "/index.html"));
+  3. At the moment webpack was using the `index.html` within `src` folder. Changed that to `./node_server/index.html` to use the server `index.html` since it's better that way(why? Since the server serves the webpage?).
