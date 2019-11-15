@@ -39,3 +39,19 @@ Then deleted core bootstrap import within `index.html` since we have already inc
 All the `.scss` files that start with `_` are called partials. It's a way to break out code and modularize it. They treated as plugins and won't be compiled. It is in `resume.scss` where we import all the partials(like so: `@import "nav.scss"` - note the missing `_`) and this tells SASS that we only want one `scss` file. It is a requirement to start partial filenames with `_` for the SASS compiler. And we just import this one file within our project, which we do in `index.js` instead of our `main.scss`.
 
 When we run our `buildDev` we see the theme loaded as our website. It doesn't have all those images and such which were to be loaded from the lines we deleted in `index.html`.
+
+### NOTES on Mixins
+
+Mixins are code snippets that enable you to define custom styling that you can import anywhere in your code base. They allow you to reuse repetitive code like when you have a lot of animations especially for cross-browser support for rotations and such.
+
+    // defining mixins:
+    @mixin body-font {
+        font-family: 'Muli', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    }
+
+    // importing/referencing mixins:
+    body {
+        @include body-font;
+        padding-top: 54px;
+        color: $gray-600;
+    }
