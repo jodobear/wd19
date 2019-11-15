@@ -2,52 +2,31 @@
 
 ## Advance React
 
-### Adding Variables to Course Component
+### Adding a Local DB
 
-Instead of having the course data hardcoded in html, we add `data` variable with course data in json, like so:
+Added `database` dir in `src` with json object `DB` with `courses` object containing an array or courses and then exported it, like so:
 
-    export default class Course extends React.Component {
-        render() {
-            let data = {
-                title: "Web Development in 2019 - From Start to Finish",
-                discription: "In this course ...",
-                level: "Beginner",
-                link: "https://www.udemy.com/web-development-in-2019-from-start-to-finish/?couponCode=TENPERCENT"
+    const DB = {
+        "courses": [
+            {
+                "title": "Web Development in 2019 - From Start to Finish",
+                "discription": "In this course ...",
+                "level": "Beginner",
+                "url": "https://www.udemy.com/web-development-in-2019-from-start-to-finish/?couponCode=TENPERCENT"
+            },
+            {
+                "title": "ASP.NET Core Web Development Bootcamp",
+                "discription": "A complete front ...",
+                "level": "Beginner",
+                "url": "https://www.udemy.com/aspnet-core-web-development-bootcamp/?couponCode=ASPYOUTUBE"
             }
-            return (
-                <div className="resume-item d-flex flex-column flex-md-row mb-5">
-                    <div className="resume-content mr-auto">
-                    <h3 className="mb-0">{data.title}</h3>
-                    <div className="subheading mb-3">{data.level}</div>
-                        <p>{data.discription}</p>
-                    </div>
-                <div className="resume-date text-md-right">
-                    <a href={data.link}><span className="text-primary">View More</span></a>
-                </div>
-            </div>
-            )
-        }
+        ]
     }
 
-Next we converted the data json into an array (by adding [] over the object), like so:
+    export {
+        DB
+    }
 
-    let data = [{ title: ....}, {title: ....}]
+This was then imported in `Course` component as: `import {DB} from '../database/courses'` (note the curly braces) and used in the render function as `let data = DB;`. Since `DB` has an object `courses` we can't just refer as `data.map(..)` we have to use `data.courses.map(..)`.
 
-And rendered it by iterating over the data array, like so:
-
-    return (
-        <div>
-            {data.map((obj, key) => {
-                return (
-                    <div className="resume-item d-flex flex-column flex-md-row mb-5">
-                        <div className="resume-content mr-auto">
-                            <h3 className="mb-0">{obj.title}</h3>
-                        <div className="subheading mb-3">{obj.level}</div>
-                            <p>{obj.discription}</p>
-                        </div>
-                        <div className="resume-date text-md-right">
-                            <a href={obj.link}><span className="text-primary">View More</span></a>
-                        </div>
-                    </div>
-                )
-            })}
+Also, changed `key` to `index` and used it.
