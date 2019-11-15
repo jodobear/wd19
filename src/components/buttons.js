@@ -5,12 +5,12 @@ export default class Button extends React.Component {
         super(props);
 
         this.state = {
-            title: "Hey Windowlicker!"
+            title: "Hey there windowlicker!"
         }
     }
 
     myClick() {
-        this.setState({ title: this.state.title === "Hey Windowlicker!" ? "Lick some windows" : "Hey Windowlicker!" })
+        this.setState({ title: this.state.title === "Hey there windowlicker!" ? "Lick 'em good!" : "Hey there windowlicker!" })
     }
 
     render() {
