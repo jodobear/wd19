@@ -1,57 +1,34 @@
 # Web Dev Chris Hawkes 2019
 
-## 027 - Importing Bootstrap Theme
+## Server - Node & Express
 
-Imported [Resume Theme](https://startbootstrap.com/themes/resume/). Extracted the files within `scss` folder into the project `scss` folder and `index.html` into project `scss` folder.
+Created a `node_server` directory in project home.
+Ran `npm init` and setup a server project and create a configuration file just as we did for the rest of the project.
+Then installed Express: `npm install --save express`.
+Then we create an `index.js` file which is the entry point to our app as we defined it during project setup.
+Pasted starter code from Express website and spun up the server using `node index.js`:
 
-### src/index.html before replacement
+    const express = require('express'); // importing express - different syntax than ES6.
+    const app = express()
+    const port = 3000
 
-This was replaced by the theme `index.html`
+    app.get('/', (req, res) => res.send('Hello, World!')); //res = resource
 
-    <html>
-        <head>
-            <title>
-            Lick`em windows good!
-            </title>
-        </head>
-        <body>
-            <header>
-            <nav>
-                <div><a href="/">Logo</a></div>
-                <div><a href="/">Home</a></div>
-                <div><a href="/">Home</a></div>
-            </nav>
-            </header>
-            <div id="root"></div>
-        </body>
-        </html>
+    app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-Then deleted core bootstrap import within `index.html` since we have already included it within our project and custom styles since we are going to be referenceing one bundled CSS file which is going to be injected it in memory, following two lines:
+### Extending the Express server
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+Then we created a `index.html` within the `node_server` directory, which contains the follwing lines:
 
-    <!-- Custom styles for this template -->
-    <link href="css/resume.min.css" rel="stylesheet">
+    <!-- This links to all the css in dist directory -->
+    <link rel="stylesheet" href="/static/style.css" />
+    <h1>Is this connection from server working?</h1>
+    <!-- This links to all the React components linked to the root id -->
+    <div id="root"></div>
+    <!-- This links to all the js in dist directory -->
+    <script src="/static/app.bundle.js"></script>
+    <!-- The static helper automatically finds stuff so, you don't have to put the paths, which is defined in index.js in the node_server -->
 
-### NOTES on the SASS structure of the theme
+Then modified the `app.get(...)` function to get `index.html`, like so:
 
-All the `.scss` files that start with `_` are called partials. It's a way to break out code and modularize it. They treated as plugins and won't be compiled. It is in `resume.scss` where we import all the partials(like so: `@import "nav.scss"` - note the missing `_`) and this tells SASS that we only want one `scss` file. It is a requirement to start partial filenames with `_` for the SASS compiler. And we just import this one file within our project, which we do in `index.js` instead of our `main.scss`.
-
-When we run our `buildDev` we see the theme loaded as our website. It doesn't have all those images and such which were to be loaded from the lines we deleted in `index.html`.
-
-### NOTES on Mixins
-
-Mixins are code snippets that enable you to define custom styling that you can import anywhere in your code base. They allow you to reuse repetitive code like when you have a lot of animations especially for cross-browser support for rotations and such.
-
-    // defining mixins:
-    @mixin body-font {
-        font-family: 'Muli', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    }
-
-    // importing/referencing mixins:
-    body {
-        @include body-font;
-        padding-top: 54px;
-        color: $gray-600;
-    }
+    app.get('/', (req, res) => res.sendFile(__dirname + "/index.html"));
