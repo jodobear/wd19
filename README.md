@@ -12,6 +12,6 @@
 * `npm install --save webpack ...` will save to project dependency.
 * As we installed above, it installed it in `node_modules` directory, which is where all the node modules/packages are stored. Add this to `.gitignore`.
 * `package-lock.json` is internal `node` functionality that keeps track of `package.json`. Don't mess with it.
-* `"buildDev": "webpack-dev-server --mode development",` added within `scripts` object in `package.json`. With this now we can run `npm run buildDev` to spin it up.
+* `"buildDev": "webpack-dev-server",` added within `scripts` object in `package.json`. With this now we can run `npm run buildDev` to spin it up.
 * If you run it now, will fail since it requires `src` directory.
 * After creating `src` if you run `npm run buildDev`, it spins up the `webpack-dev-server` and at `localhost:8080` displays you `index.html`.
